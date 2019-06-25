@@ -1,0 +1,766 @@
+= 双认证接口文档
+
+
+[[_overview]]
+== Overview
+双认证相关接口的文档
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0
+
+
+=== License information
+[%hardbreaks]
+__Terms of service__ : http://www.xxx.com
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : localhost:8004
+__BasePath__ : /
+
+
+=== Tags
+
+* user-controller : User Controller
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_authusingget]]
+=== 认证
+....
+GET /users/Auth/{userid}
+....
+
+
+==== Description
+认证
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**userid** +
+__required__|userid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**481**|unkown error!|No Content
+|**483**|user is not exist!|No Content
+|**485**|user in blacklist!|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/Auth/string
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_getuserusingput]]
+=== 全局认证开关
+....
+PUT /users/GlobalAuth/{authSwitch}
+....
+
+
+==== Description
+全局认证开关
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**authSwitch** +
+__required__|authSwitch|boolean
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/GlobalAuth/true
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_addwhitelistusingpost]]
+=== 增加白名单
+....
+POST /users/Whitelist/{userid}
+....
+
+
+==== Description
+增加白名单
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**userid** +
+__required__|userid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**483**|user is not exist!|No Content
+|**484**|user is in whitelist!|No Content
+|**485**|user is in blacklist!!|No Content
+|**489**|userid is null|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/Whitelist/string
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_deletewhitelistusingdelete]]
+=== 删除白名单
+....
+DELETE /users/Whitelist/{userid}
+....
+
+
+==== Description
+删除白名单
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**userid** +
+__required__|userid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**204**|No Content|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**483**|user is not exist!|No Content
+|**486**|user is not in whitelist!|No Content
+|**489**|userid is null|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/Whitelist/string
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_createuserusingpost]]
+=== 创建用户
+....
+POST /users/createUser
+....
+
+
+==== Description
+根据User对象创建用户
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**user** +
+__required__|user|<<_user,User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**482**|user is exist!|No Content
+|**488**|user is null|No Content
+|**489**|userid is null|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/createUser
+----
+
+
+===== Request body
+[source,json]
+----
+{
+  "ActiveTime" : "string",
+  "UpdateTime" : "string",
+  "accountType" : 0,
+  "activeTime" : "string",
+  "address" : "string",
+  "carrier" : 0,
+  "city" : "string",
+  "epgGroup" : "string",
+  "fatherAccount" : "string",
+  "fee" : 0,
+  "gender" : "string",
+  "idnumber" : "string",
+  "mac" : "string",
+  "password" : "string",
+  "productList" : "string",
+  "province" : "string",
+  "region" : "string",
+  "spid" : "string",
+  "state" : 0,
+  "stbID" : "string",
+  "teamID" : 0,
+  "telePhone" : "string",
+  "tradeFlag" : 0,
+  "updateTime" : "string",
+  "userID" : "string",
+  "userType" : 0,
+  "username" : "string"
+}
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_getuserusingget]]
+=== 查询用户信息
+....
+GET /users/getUser/{userid}
+....
+
+
+==== Description
+查询用户信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**userid** +
+__required__|userid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**483**|user is not exist!|No Content
+|===
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/getUser/string
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_modifyuserusingput_1]]
+=== 修改用户信息
+....
+PUT /users/modifyUser
+....
+
+
+==== Description
+修改用户信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**user** +
+__required__|user|<<_user,User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**483**|user is not exist!|No Content
+|**488**|user is null|No Content
+|**489**|userid is null|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/modifyUser
+----
+
+
+===== Request body
+[source,json]
+----
+{
+  "ActiveTime" : "string",
+  "UpdateTime" : "string",
+  "accountType" : 0,
+  "activeTime" : "string",
+  "address" : "string",
+  "carrier" : 0,
+  "city" : "string",
+  "epgGroup" : "string",
+  "fatherAccount" : "string",
+  "fee" : 0,
+  "gender" : "string",
+  "idnumber" : "string",
+  "mac" : "string",
+  "password" : "string",
+  "productList" : "string",
+  "province" : "string",
+  "region" : "string",
+  "spid" : "string",
+  "state" : 0,
+  "stbID" : "string",
+  "teamID" : 0,
+  "telePhone" : "string",
+  "tradeFlag" : 0,
+  "updateTime" : "string",
+  "userID" : "string",
+  "userType" : 0,
+  "username" : "string"
+}
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+[[_modifyuserusingput]]
+=== 修改用户状态
+....
+PUT /users/modifyUserState
+....
+
+
+==== Description
+修改用户状态
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**spid** +
+__optional__|平台标识|string
+|**Query**|**state** +
+__required__|状态|integer (int32)
+|**Query**|**userid** +
+__required__|主键id|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|success!|<<_responsemessage,ResponseMessage>>
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**483**|user is not exist!|No Content
+|**489**|userid is null|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+==== Example HTTP request
+
+===== Request path
+----
+/users/modifyUserState
+----
+
+
+===== Request query
+[source,json]
+----
+{
+  "spid" : "string",
+  "state" : 0,
+  "userid" : "string"
+}
+----
+
+
+==== Example HTTP response
+
+===== Response 200
+[source,json]
+----
+{
+  "data" : "object",
+  "errorCode" : 0,
+  "errorMsg" : "string"
+}
+----
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_responsemessage]]
+=== ResponseMessage
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**data** +
+__optional__|**Example** : `"object"`|object
+|**errorCode** +
+__optional__|**Example** : `0`|integer (int32)
+|**errorMsg** +
+__optional__|**Example** : `"string"`|string
+|===
+
+
+[[_user]]
+=== User
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**ActiveTime** +
+__optional__|**Example** : `"string"`|string (date-time)
+|**UpdateTime** +
+__optional__|**Example** : `"string"`|string (date-time)
+|**accountType** +
+__optional__|**Example** : `0`|integer (int32)
+|**activeTime** +
+__optional__|**Example** : `"string"`|string (date-time)
+|**address** +
+__optional__|**Example** : `"string"`|string
+|**carrier** +
+__optional__|**Example** : `0`|integer (int32)
+|**city** +
+__optional__|**Example** : `"string"`|string
+|**epgGroup** +
+__optional__|**Example** : `"string"`|string
+|**fatherAccount** +
+__optional__|**Example** : `"string"`|string
+|**fee** +
+__optional__|**Example** : `0`|integer (int32)
+|**gender** +
+__optional__|**Example** : `"string"`|string
+|**idnumber** +
+__optional__|**Example** : `"string"`|string
+|**mac** +
+__optional__|**Example** : `"string"`|string
+|**password** +
+__optional__|**Example** : `"string"`|string
+|**productList** +
+__optional__|**Example** : `"string"`|string
+|**province** +
+__optional__|**Example** : `"string"`|string
+|**region** +
+__optional__|**Example** : `"string"`|string
+|**spid** +
+__optional__|**Example** : `"string"`|string
+|**state** +
+__optional__|**Example** : `0`|integer (int32)
+|**stbID** +
+__optional__|**Example** : `"string"`|string
+|**teamID** +
+__optional__|**Example** : `0`|integer (int32)
+|**telePhone** +
+__optional__|**Example** : `"string"`|string
+|**tradeFlag** +
+__optional__|**Example** : `0`|integer (int32)
+|**updateTime** +
+__optional__|**Example** : `"string"`|string (date-time)
+|**userID** +
+__optional__|**Example** : `"string"`|string
+|**userType** +
+__optional__|**Example** : `0`|integer (int32)
+|**username** +
+__optional__|**Example** : `"string"`|string
+|===
+
+
+
+
+
